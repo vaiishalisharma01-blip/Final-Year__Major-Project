@@ -283,3 +283,10 @@ if __name__ == '__main__':
     #   Windows:  set OPENWEATHER_API_KEY=your_key_here
     #   Mac/Linux: export OPENWEATHER_API_KEY=your_key_here
     app.run(debug=True)
+
+# For Vercel deployment
+try:
+    from vercel_wsgi import make_handler
+    handler = make_handler(app)
+except ImportError:
+    pass
