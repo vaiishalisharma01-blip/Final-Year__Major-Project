@@ -16,7 +16,4 @@ env/
 .DS_Store
 Thumbs.db
 .ipynb_checkpoints/
-# Model and data files (optional, if too large or sensitive)
-final_build/models/*.pth
-final_build/models/*.pkl
-final_build/data/*.csv
+# Model and data files included for deployment
