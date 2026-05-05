@@ -1,0 +1,22 @@
+# CropSense AI - GitHub Deployment
+# Ignore Python, environment, and sensitive files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+venv/
+env/
+.venv/
+.env
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.ipynb_checkpoints/
+# Model and data files (optional, if too large or sensitive)
+final_build/models/*.pth
+final_build/models/*.pkl
+final_build/data/*.csv

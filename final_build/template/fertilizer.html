@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CropSense AI — Fertilizer Recommendation</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/fertilizer.css') }}" />
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- LEFT: Form -->
+  <div class="panel panel-left">
+    <a href="/" id="home-btn" title="Back to Home">
+      <img src="{{ url_for('static', filename='assets/home-icon.png') }}" alt="Home" />
+    </a>
+
+    <div class="panel-header">
+      <span class="panel-icon">🌿</span>
+      <div>
+        <h1>Fertilizer Advisor</h1>
+        <p class="panel-sub">Enter soil levels and crop — click to get advice</p>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>Nitrogen <span class="unit">(N · current level)</span></label>
+      <input type="number" id="nitrogen"   placeholder="e.g. 20" min="0" />
+    </div>
+    <div class="field-group">
+      <label>Phosphorus <span class="unit">(P · current level)</span></label>
+      <input type="number" id="phosphorus" placeholder="e.g. 30" min="0" />
+    </div>
+    <div class="field-group">
+      <label>Potassium <span class="unit">(K · current level)</span></label>
+      <input type="number" id="potassium"  placeholder="e.g. 40" min="0" />
+    </div>
+    <div class="field-group">
+      <label>Crop to Grow</label>
+      <select id="crop">
+        <option value="">Select crop…</option>
+        <option>rice</option><option>maize</option><option>chickpea</option>
+        <option>kidneybeans</option><option>pigeonpeas</option><option>mothbeans</option>
+        <option>mungbean</option><option>blackgram</option><option>lentil</option>
+        <option>pomegranate</option><option>banana</option><option>mango</option>
+        <option>grapes</option><option>watermelon</option><option>muskmelon</option>
+        <option>apple</option><option>orange</option><option>papaya</option>
+        <option>coconut</option><option>cotton</option><option>jute</option>
+        <option>coffee</option>
+      </select>
+    </div>
+
+    <button id="predict-btn" onclick="getFertilizer()">🧪 Get Fertilizer Advice</button>
+    <button id="reset-btn"   onclick="resetForm()">↺ Reset</button>
+  </div>
+
+  <!-- RIGHT: Result -->
+  <div class="panel panel-right" id="rightPanel">
+
+    <!-- Idle state -->
+    <div id="state-idle" class="state-wrap">
+      <div class="idle-icon">🧪</div>
+      <p class="idle-title">Fertilizer Advisor</p>
+      <p class="idle-text">Enter your soil N / P / K values and select a crop on the left, then click <strong>Get Fertilizer Advice</strong>.</p>
+    </div>
+
+    <!-- Loading state -->
+    <div id="state-loading" class="state-wrap" style="display:none">
+      <div class="spinner"></div>
+      <p class="idle-text">Calculating nutrient balance…</p>
+    </div>
+
+    <!-- Error state -->
+    <div id="state-error" class="state-wrap" style="display:none">
+      <div class="idle-icon">⚠️</div>
+      <p class="err-msg" id="error-msg">Something went wrong.</p>
+    </div>
+
+    <!-- Result state: inline point-by-point, no popup -->
+    <div id="state-result" style="display:none" class="result-area">
+      <div class="result-heading" id="result-heading"></div>
+      <ol class="result-list" id="result-list"></ol>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function showState(name) {
+  ['idle','loading','error','result'].forEach(s => {
+    const el = document.getElementById('state-' + s);
+    if (el) el.style.display = s === name ? (s === 'result' ? 'block' : 'flex') : 'none';
+  });
+  if (name !== 'result') return;
+  // scroll right panel to top every time result shows
+  document.getElementById('rightPanel').scrollTop = 0;
+}
+
+function getFertilizer() {
+  const fields = ['nitrogen','phosphorus','potassium','crop'];
+  if (!fields.every(id => document.getElementById(id).value.trim() !== '')) {
+    showState('error');
+    document.getElementById('error-msg').textContent = 'Please fill in all fields before submitting.';
+    return;
+  }
+  showState('loading');
+
+  const data = new URLSearchParams({
+    nitrogen:   document.getElementById('nitrogen').value,
+    phosphorus: document.getElementById('phosphorus').value,
+    potassium:  document.getElementById('potassium').value,
+    crop:       document.getElementById('crop').value,
+  });
+
+  fetch('/recommend_fertilizer', { method: 'POST', body: data })
+    .then(r => r.json())
+    .then(resp => {
+      if (resp.error) {
+        showState('error');
+        document.getElementById('error-msg').textContent = resp.error;
+        return;
+      }
+
+      // Parse the returned HTML into heading + list items
+      const parser = new DOMParser();
+      const doc    = parser.parseFromString(resp.prediction, 'text/html');
+      const h2     = doc.querySelector('h2');
+      const items  = doc.querySelectorAll('ol li');
+
+      // Set heading
+      document.getElementById('result-heading').textContent =
+        h2 ? h2.textContent.trim() : 'Fertilizer Recommendations';
+
+      // Build list items inline — strong label + plain text body
+      const listEl = document.getElementById('result-list');
+      listEl.innerHTML = '';
+      items.forEach((li, i) => {
+        const strong = li.querySelector('strong');
+        const label  = strong ? strong.textContent.trim() : '';
+        const body   = strong
+          ? li.textContent.replace(strong.textContent, '').trim()
+          : li.textContent.trim();
+
+        const item = document.createElement('li');
+        const inner = document.createElement('div');
+        inner.className = 'pt-content';
+        inner.innerHTML =
+          (label ? `<span class="pt-label">${label}</span>` : '') +
+          `<span class="pt-body">${body}</span>`;
+        item.appendChild(inner);
+        listEl.appendChild(item);
+      });
+
+      showState('result');
+    })
+    .catch(() => {
+      showState('error');
+      document.getElementById('error-msg').textContent = 'Could not reach server.';
+    });
+}
+
+function resetForm() {
+  ['nitrogen','phosphorus','potassium','crop'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  showState('idle');
+}
+</script>
+</body>
+</html>

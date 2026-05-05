@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CropSense AI — Intelligent Agriculture Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <span class="logo-icon">🌾</span>
+    <span class="logo-text">CropSense <span class="logo-ai">AI</span></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#hero"     class="nav-link">Home</a></li>
+    <li><a href="#about"    class="nav-link">About</a></li>
+    <li><a href="#services" class="nav-link">Services</a></li>
+    <li><a href="#team"     class="nav-link">Team</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="/crop_recom.html" class="btn-nav">Get Started →</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">🤖 AI-Powered Agriculture</div>
+    <h1 class="hero-title">
+      Smart Farming<br />
+      <span class="hero-accent">Starts Here</span>
+    </h1>
+    <p class="hero-sub">
+      CropSense AI uses machine learning to give farmers personalised crop recommendations,
+      fertilizer advice, and instant plant disease detection.
+    </p>
+    <div class="hero-btns">
+      <a href="/crop_recom.html" class="btn-primary">🌱 Crop Recommendation</a>
+      <a href="/disease.html"    class="btn-secondary">🍃 Disease Detection</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-n">38</span>
+        <span class="stat-l">Disease Classes</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <span class="stat-n">22</span>
+        <span class="stat-l">Crop Types</span>
+      </div>
+      <div class="stat-div"></div>
+      <div class="stat">
+        <span class="stat-n">4</span>
+        <span class="stat-l">AI Tools</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-img-wrap">
+    <div class="hero-img-glow"></div>
+    <img src="{{ url_for('static', filename='assets/bg-image.jpg') }}" alt="Farm" class="hero-img" />
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll to explore</span>
+    <div class="scroll-dot"></div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="section-label">Who We Are</div>
+  <h2 class="section-title">About CropSense AI</h2>
+
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <img src="{{ url_for('static', filename='assets/bg1.jpg') }}" alt="Farming" />
+      <div class="about-img-badge">
+        <span class="badge-icon">🌿</span>
+        <span>Sustainable Farming</span>
+      </div>
+    </div>
+
+    <div class="about-text">
+      <p class="about-lead">
+        We combine cutting-edge machine learning with agricultural expertise
+        to help farmers make smarter, data-driven decisions.
+      </p>
+      <p class="about-body">
+        By analysing soil composition, climate data, and crop characteristics,
+        CropSense AI delivers personalised recommendations that maximise
+        productivity while promoting sustainable practices.
+        Our plant disease detection model identifies 38 disease categories
+        from a single leaf photo in seconds.
+      </p>
+      <div class="about-features">
+        <div class="feature-chip">✅ Instant Results</div>
+        <div class="feature-chip">✅ No Internet Required</div>
+        <div class="feature-chip">✅ Free to Use</div>
+      </div>
+      <a href="/crop_recom.html" class="btn-primary" style="display:inline-block;margin-top:28px;">
+        Try It Now →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section id="how">
+  <div class="section-label">Process</div>
+  <h2 class="section-title">How It Works</h2>
+  <div class="steps-row">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-icon">📋</div>
+      <h3>Enter Your Data</h3>
+      <p>Input your soil N/P/K values, pH level, rainfall, and nearest city.</p>
+    </div>
+    <div class="step-arrow">→</div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-icon">🤖</div>
+      <h3>AI Analyses</h3>
+      <p>Our Random Forest model analyses 7 parameters against 2,200 data points.</p>
+    </div>
+    <div class="step-arrow">→</div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-icon">✅</div>
+      <h3>Get Results</h3>
+      <p>Receive instant, personalised crop or fertilizer recommendations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="section-label">What We Offer</div>
+  <h2 class="section-title">Our Services</h2>
+  <p class="section-sub">Three powerful AI tools — all in one platform</p>
+
+  <div class="services-grid">
+    <a href="/crop_recom.html" class="service-card" id="svc-crop">
+      <div class="svc-img">
+        <img src="{{ url_for('static', filename='assets/crop.jpg') }}" alt="Crop" />
+        <div class="svc-img-overlay"></div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon">🌱</div>
+        <h3>Crop Recommendation</h3>
+        <p>Enter your soil data and location — get the ideal crop instantly. Updates live as you type.</p>
+        <div class="svc-link">Explore → </div>
+      </div>
+    </a>
+
+    <a href="/fertilizer.html" class="service-card" id="svc-fert">
+      <div class="svc-img">
+        <img src="{{ url_for('static', filename='assets/fertilizer.png') }}" alt="Fertilizer" />
+        <div class="svc-img-overlay"></div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon">🌿</div>
+        <h3>Fertilizer Advisor</h3>
+        <p>Identify nutrient deficiencies and get targeted fertilizer advice for your crop type.</p>
+        <div class="svc-link">Explore → </div>
+      </div>
+    </a>
+
+    <a href="/disease.html" class="service-card" id="svc-dis">
+      <div class="svc-img">
+        <img src="{{ url_for('static', filename='assets/crop-disease.JPG') }}" alt="Disease" />
+        <div class="svc-img-overlay"></div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon">🍃</div>
+        <h3>Disease Detection</h3>
+        <p>Upload a leaf photo — our ResNet9 AI scans and identifies the disease in seconds.</p>
+        <div class="svc-link">Explore → </div>
+      </div>
+    </a>
+
+    <a href="/chatbot2.html" class="service-card" id="svc-chat">
+      <div class="svc-img">
+        <img src="{{ url_for('static', filename='assets/farm.jpg') }}" alt="Chatbot" />
+        <div class="svc-img-overlay"></div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon">💬</div>
+        <h3>CropSense AI ChatBot</h3>
+        <p>Ask anything about farming, crops, or soil — our AI chatbot has the answers.</p>
+        <div class="svc-link">Explore → </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ── FACTS ── -->
+<section id="facts">
+  <div class="facts-inner">
+    <div class="fact-item">
+      <span class="fact-n">2,200+</span>
+      <span class="fact-l">Training Data Points</span>
+    </div>
+    <div class="fact-item">
+      <span class="fact-n">38</span>
+      <span class="fact-l">Disease Categories</span>
+    </div>
+    <div class="fact-item">
+      <span class="fact-n">22</span>
+      <span class="fact-l">Crop Types</span>
+    </div>
+    <div class="fact-item">
+      <span class="fact-n">3</span>
+      <span class="fact-l">AI Models</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── TEAM ── -->
+<section id="team">
+  <div class="section-label">The People</div>
+  <h2 class="section-title">Meet Our Team</h2>
+
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-img-wrap">
+        <div class="team-img-placeholder">G1</div>
+        <div class="team-img-ring"></div>
+      </div>
+      <h3>Reena Yadav</h3>
+      <div class="team-role">ML Engineer</div>
+      <p>Trained and optimised the crop recommendation &amp; fertilizer ML models. Managed dataset preparation and model evaluation.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-img-wrap">
+        <div class="team-img-placeholder">G2</div>
+        <div class="team-img-ring"></div>
+      </div>
+      <h3>Vaishali Sharma</h3>
+      <div class="team-role">Deep Learning Engineer</div>
+      <p>Built and integrated the ResNet9 plant disease detection model. Handled image preprocessing and PyTorch pipeline.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-img-wrap">
+        <div class="team-img-placeholder">G3</div>
+        <div class="team-img-ring"></div>
+      </div>
+      <h3>Sukanya Jha</h3>
+      <div class="team-role">Backend Developer</div>
+      <p>Developed the Flask server, REST API routes, weather integration, and data pipelines connecting all modules.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-img-wrap">
+        <div class="team-img-placeholder">G4</div>
+        <div class="team-img-ring"></div>
+      </div>
+      <h3>Piyush Sahu</h3>
+      <div class="team-role">Frontend Developer</div>
+      <p>Designed and built the complete UI — homepage, all feature pages, responsive layouts, and the AI chatbot interface.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section id="cta">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2>Ready to farm smarter?</h2>
+      <p>Get your first AI-powered crop recommendation in under 30 seconds — no signup needed.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="/crop_recom.html" class="btn-primary">🌱 Start Now</a>
+      <a href="/chatbot2.html"   class="btn-outline">💬 Ask the Chatbot</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-icon">🌾</span>
+      <span class="logo-text">CropSense <span class="logo-ai">AI</span></span>
+      <p>Empowering farmers with intelligent, AI-driven agricultural insights.</p>
+    </div>
+    <div class="footer-links">
+      <div class="fl-col">
+        <h4>Tools</h4>
+        <a href="/crop_recom.html">Crop Recommendation</a>
+        <a href="/fertilizer.html">Fertilizer Advisor</a>
+        <a href="/disease.html">Disease Detection</a>
+        <a href="/chatbot2.html">ChatBot</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 CropSense AI Team. All rights reserved.
+  </div>
+</footer>
+
+<script>
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Animate sections on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('section, .service-card, .team-card, .step-card').forEach(el => {
+  el.classList.add('fade-in');
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
