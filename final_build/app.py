@@ -282,4 +282,5 @@ if __name__ == '__main__':
     # Set OPENWEATHER_API_KEY as an environment variable before running:
     #   Windows:  set OPENWEATHER_API_KEY=your_key_here
     #   Mac/Linux: export OPENWEATHER_API_KEY=your_key_here
-    app.run(debug=os.environ.get('FLASK_DEBUG', 'False').lower() == 'true')
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=os.environ.get('FLASK_DEBUG', 'False').lower() == 'true')
