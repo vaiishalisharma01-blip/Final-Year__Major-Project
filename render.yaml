@@ -5,8 +5,8 @@ services:
     plan: free
     branch: main
     region: oregon
-    buildCommand: pip install -r final_build/requirements.txt
-    startCommand: python final_build/app.py
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT final_build.wsgi:application
     envVars:
       - key: OPENWEATHER_API_KEY
         sync: false
